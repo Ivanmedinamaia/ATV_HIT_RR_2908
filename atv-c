@@ -1,0 +1,31 @@
+.data
+    s_text: .asciiz "s = "
+    s_value: .asciiz "\n"
+.text
+    .globl main
+main:
+    # Inicialização das variáveis
+    li $t0, 0       # i = 0
+    li $t1, 5       # j = 5
+    li $t2, 1       # s = 1
+
+    # Loop for
+    loop:
+        bge $t0, $t1, end    # Se i >= j, sair do loop
+        add $t2, $t2, $t0    # s = s + i
+        addi $t0, $t0, 1     # i++
+        j loop              # Voltar para o início do loop
+
+    # Imprimir o valor de s
+    li $v0, 4
+    la $a0, s_text
+    syscall
+
+    li $v0, 1
+    move $a0, $t2
+    syscall
+
+    li $v0, 10
+    syscall
+
+end:
